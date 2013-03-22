@@ -49,7 +49,7 @@ github.com:
 /home/{{ main_user }}/.virtualenvs:
   file.directory:
     - user: {{ main_user }}
-    - mode: 766
+    - mode: 755
     - makedirs: True
     - require:
       - file: /home/{{ main_user }}
@@ -64,5 +64,28 @@ grant-access-{{ deployer.github }}:
     - source: https://github.com/{{ deployer.github }}.keys
     - require:
       - file: /home/{{ main_user }}/.ssh
+{% endfor %}
+
+/home/{{ main_user }}/.repos:
+  file.directory:
+    - user: {{ main_user }}
+    - mode: 755
+    - makedirs: True
+    - require:
+      - file: /home/{{ main_user }}
+
+{% for project in pillar['projects'] %}
+/home/{{ main_user }}/.virtualenvs/{{ project.name }}-env:
+  virtualenv.managed:
+    - no_site_packages: True
+    - require:
+      - file: /home/{{ main_user }}/.virtualenvs
+
+/home/{{ main_user }}/.repos/{{ project.name }}.git:
+  git.present:
+    - bare: True
+    - runas: {{ main_user }}
+    - require:
+      - file: /home/{{ main_user }}/.repos
 {% endfor %}
 {% endif %}

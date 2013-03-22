@@ -4,3 +4,6 @@ main_user:
 deployers:
   - github: girla
   - github: zen4ever
+
+projects:
+  - name: admanager
