@@ -1,8 +1,5 @@
-debconf-utils:
-  pkg.installed
-
-python-pip:
-  pkg.installed
+include:
+  - core
 
 virtualenv:
   pip.installed:
@@ -12,10 +9,4 @@ virtualenv:
 virtualenvwrapper:
   pip.installed:
     - require:
-      - pkg: virtualenv 
-
-/var/virtualenv:
-  virtualenv.managed:
-    - no_site_packages: True
-    - require:
-      - pkg: virtualenv
+      - pip: virtualenv
