@@ -1,5 +1,5 @@
 include:
-  - virtualenv
+  - core
 
 supervisor:
   pip.installed:
