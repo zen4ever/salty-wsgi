@@ -1,8 +1,8 @@
-basepkgs:
-  pkg.installed:
-    - pkgs:
-      - debconf-utils
-      - python-pip
+debconf-utils:
+  pkg.installed
+
+python-pip:
+  pkg.installed
 
 virtualenv:
   pip.installed:
