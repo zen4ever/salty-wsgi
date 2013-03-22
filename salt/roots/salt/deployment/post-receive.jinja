@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+unset GIT_DIR
+if [ ! -f /home/{{ user }}/{{ appname }} ];
+then
+    cd /home/{{ user }}
+    git clone /home/{{ user }}/.repos/{{ appname }}.git
+    cd /home/{{ user }}/{{ appname }}
+else
+    cd /home/{{ user }}/{{ appname }}
+    git pull origin master
+fi
+. /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/activate
+pip install -r requirements.txt
+# ./manage.py collectstatic --noinput
+# supervisorctl reread
+# supervisorctl update
+# supervisorctl restart all 

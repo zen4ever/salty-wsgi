@@ -7,3 +7,6 @@ deployers:
 
 projects:
   - name: admanager
+    rev: master
+    fqdn: admanager.marpasoft.com
+    port: 5001

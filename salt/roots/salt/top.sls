@@ -4,4 +4,4 @@ base:
       - nginx
       - virtualenv
       - supervisor
-      - users
+      - deployment

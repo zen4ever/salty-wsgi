@@ -1,3 +1,6 @@
+include:
+  - core
+
 {% if pillar['main_user'] %}
 {% set main_user = pillar['main_user'] %}
 # create default deployment user
@@ -34,7 +37,7 @@ github.com:
   file.managed:
     - user: {{ main_user }}
     - mode: 755
-    - source: salt://users/bashrc
+    - source: salt://deployment/bashrc
     - require:
       - file: /home/{{ main_user }}
 
@@ -77,15 +80,34 @@ grant-access-{{ deployer.github }}:
 {% for project in pillar['projects'] %}
 /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env:
   virtualenv.managed:
+    - runas: {{ main_user }}
     - no_site_packages: True
     - require:
       - file: /home/{{ main_user }}/.virtualenvs
 
-/home/{{ main_user }}/.repos/{{ project.name }}.git:
+bare-repo-{{ project.name }}:
   git.present:
     - bare: True
     - runas: {{ main_user }}
+    - name: /home/{{ main_user }}/.repos/{{ project.name }}.git
     - require:
       - file: /home/{{ main_user }}/.repos
+
+/home/{{ main_user }}/.repos/{{ project.name }}.git/hooks/post-receive:
+  file.managed:
+    - source: salt://deployment/post-receive.jinja
+    - template: jinja
+    - user: {{ main_user }}
+    - group: {{ main_user }}
+    - mode: 750
+    - context: {{ project }}
+    - defaults:
+        appname: {{ project.name }}
+        user: {{ main_user }}
+        group: {{ main_user }}
+    - require:
+      - git: bare-repo-{{ project.name }} 
+      - pkg: supervisor
+      - gem: foreman
 {% endfor %}
 {% endif %}
