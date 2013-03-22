@@ -1,5 +1,6 @@
 {% if pillar['main_user'] %}
 {% set main_user = pillar['main_user'] %}
+# create default deployment user
 {{ main_user }}:
   group:
     - present
@@ -11,6 +12,7 @@
     - require:
       - group: {{ main_user }}
 
+# make sure that github fingerprint is in the known hosts for our user
 github.com:
   ssh_known_hosts:
     - present
@@ -36,6 +38,8 @@ github.com:
     - require:
       - file: /home/{{ main_user }}
 
+# grant ssh access to our deployers
+# pull their public keys from their github profiles
 {% for deployer in pillar['deployers'] %}
 grant-access-{{ deployer.github }}:
   ssh_auth:

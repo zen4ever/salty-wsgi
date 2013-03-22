@@ -1,8 +1,6 @@
 vim:
-  pkg:
-    - installed
+  pkg.installed
 
 /home/vagrant/.vimrc:
-  file:
-    - managed
+  file.managed:
     - source: salt://vim/vimrc
