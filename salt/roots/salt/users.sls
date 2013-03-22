@@ -5,6 +5,7 @@
     - present
   user.present:
     - home: /home/{{ main_user }}
+    - shell: /bin/bash
     - groups:
       - {{ main_user }}
     - require:

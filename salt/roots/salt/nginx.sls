@@ -13,3 +13,6 @@ nginx-service:
     - enable: True
     - require:
       - pkg: nginx
+
+/etc/nginx/sites-available/default:
+  file.absent

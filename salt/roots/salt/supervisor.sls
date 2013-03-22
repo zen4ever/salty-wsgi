@@ -1,7 +1,6 @@
-include:
-  - core
-
 supervisor:
-  pip.installed:
+  pkg:
+    - installed
+  service.running:
     - require:
-      - pkg: python-pip
+      - pkg: supervisor
