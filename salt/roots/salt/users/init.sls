@@ -30,10 +30,26 @@ github.com:
     - require:
       - user: {{ main_user }}
 
+/home/{{ main_user }}/.bashrc:
+  file.managed:
+    - user: {{ main_user }}
+    - mode: 755
+    - source: salt://users/bashrc
+    - require:
+      - file: /home/{{ main_user }}
+
 /home/{{ main_user }}/.ssh:
   file.directory:
     - user: {{ main_user }}
     - mode: 700
+    - makedirs: True
+    - require:
+      - file: /home/{{ main_user }}
+
+/home/{{ main_user }}/.virtualenvs:
+  file.directory:
+    - user: {{ main_user }}
+    - mode: 766
     - makedirs: True
     - require:
       - file: /home/{{ main_user }}
