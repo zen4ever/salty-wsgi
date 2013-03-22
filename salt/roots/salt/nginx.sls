@@ -5,9 +5,11 @@ base:
       - pkg: nginx
 
 nginx:
-  pkg:
-    - installed
-  service:
-    - running
+  pkg.installed
+
+nginx-service:
+  service.running:
+    - name: nginx
+    - enable: True
     - require:
       - pkg: nginx
