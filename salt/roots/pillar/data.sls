@@ -1,6 +1,6 @@
-unprivileged_user:
+main_user:
   marpasoft
 
 deployers:
-  - github_name: girla
-  - github_name: zen4ever
+  - github: girla
+  - github: zen4ever
