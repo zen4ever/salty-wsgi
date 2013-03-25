@@ -19,8 +19,17 @@ include:
 github.com:
   ssh_known_hosts:
     - present
-    - user: {{ main_user }} 
+    - user: {{ main_user }}
     - fingerprint: 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+    - require:
+      - user: {{ main_user }}
+      - file: /home/{{ main_user }}/.ssh
+
+gitlab.marpasoft.com:
+  ssh_known_hosts:
+    - present
+    - user: {{ main_user }}
+    - fingerprint: 1a:78:4f:d5:90:0f:c7:c6:e6:c2:2c:31:31:ec:03:e5
     - require:
       - user: {{ main_user }}
       - file: /home/{{ main_user }}/.ssh
@@ -102,11 +111,12 @@ bare-repo-{{ project.name }}:
     - mode: 750
     - context: {{ project }}
     - defaults:
+        branch: master
         appname: {{ project.name }}
         user: {{ main_user }}
         group: {{ main_user }}
     - require:
-      - git: bare-repo-{{ project.name }} 
+      - git: bare-repo-{{ project.name }}
       - pkg: supervisor
       - gem: foreman
 {% endfor %}
