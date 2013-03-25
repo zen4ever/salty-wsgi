@@ -5,3 +5,4 @@ base:
       - virtualenv
       - supervisor
       - deployment
+      - redis
