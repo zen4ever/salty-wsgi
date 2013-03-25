@@ -7,6 +7,10 @@ deployers:
 
 projects:
   - name: admanager
-    rev: master
-    fqdn: admanager.marpasoft.com
-    port: 5001
+    branch: master
+    provider: gunicorn
+    wsgi_module: admanager.wsgi
+    requirements: requirements.txt
+    nginx:
+      fqdn: admanager.marpasoft.com
+      port: 5001
