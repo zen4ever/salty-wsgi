@@ -12,3 +12,10 @@ python-dev:
 
 foreman:
   gem.installed
+
+en_US.UTF-8:
+  locale.system
+
+America/Los_Angeles:
+  timezone.system:
+    - utc: True
