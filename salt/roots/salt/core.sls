@@ -1,6 +1,12 @@
 debconf-utils:
   pkg.installed
 
+ruby1.9.1:
+  pkg.installed
+
+ruby1.9.1-dev:
+  pkg.installed
+
 libjpeg-dev:
   pkg.installed
 
