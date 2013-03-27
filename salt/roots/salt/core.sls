@@ -32,7 +32,9 @@ libevent1-dev:
   pkg.installed
 
 foreman:
-  gem.installed
+  gem.installed:
+    - require:
+      - pkg: ruby1.9.1
 
 en_US.UTF-8:
   locale.system
