@@ -25,15 +25,6 @@ github.com:
       - user: {{ main_user }}
       - file: /home/{{ main_user }}/.ssh
 
-gitlab.marpasoft.com:
-  ssh_known_hosts:
-    - present
-    - user: {{ main_user }}
-    - fingerprint: 1a:78:4f:d5:90:0f:c7:c6:e6:c2:2c:31:31:ec:03:e5
-    - require:
-      - user: {{ main_user }}
-      - file: /home/{{ main_user }}/.ssh
-
 /home/{{ main_user }}:
   file.directory:
     - user: {{ main_user }}
