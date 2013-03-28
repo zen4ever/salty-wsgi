@@ -23,3 +23,6 @@ projects:
       default: False
       upstreams:
         - localhost:5000
+
+nginx:
+  workers: 4

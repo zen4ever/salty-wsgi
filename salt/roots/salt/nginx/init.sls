@@ -42,9 +42,10 @@ nginx:
   file.managed:
     - source: salt://nginx/nginx.conf
     - template: jinja
+    - context: {{ pillar['nginx'] }}
     - defaults:
-      - main_user: {{ main_user }}
-      - workers: 4
+      main_user: {{ main_user }}
+      workers: 4
     - require:
       - pkg: nginx
 
