@@ -39,12 +39,12 @@ nginx:
 {% set main_user = pillar['main_user'] %}
 
 /etc/nginx/nginx.conf:
-  source: salt://nginx/nginx.conf
-  template: jinja
-  defaults:
-    - main_user: {{ main_user }}
-    - workers: 4
   file.managed:
+    - source: salt://nginx/nginx.conf
+    - template: jinja
+    - defaults:
+      - main_user: {{ main_user }}
+      - workers: 4
     - require:
       - pkg: nginx
 
