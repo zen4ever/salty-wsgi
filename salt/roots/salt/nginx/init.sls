@@ -38,7 +38,7 @@ nginx:
 {% if pillar['main_user'] %}
 {% set main_user = pillar['main_user'] %}
 
-/etc/nginx/nginx.conf
+/etc/nginx/nginx.conf:
   source: salt://nginx/nginx.conf
   template: jinja
   defaults:
