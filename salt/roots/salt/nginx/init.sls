@@ -5,8 +5,14 @@ base:
     - require_in:
       - pkg: nginx
 
+apache2.2-common:
+  pkg.purged
+
 nginx:
-  pkg.installed
+  pkg.installed:
+    - require:
+      - pkg: apache2.2-common
+
 
 # on Ubuntu 12.04 this file prevents nginx from launching
 /etc/nginx/sites-available/default:
@@ -53,5 +59,6 @@ nginx-service:
     - enable: True
     - require:
       - pkg: nginx
+      - file: /etc/nginx/sites-enabled/default
     - watch:
       - file: /etc/nginx/sites-enabled/*

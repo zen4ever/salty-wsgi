@@ -20,5 +20,6 @@ projects:
     port_base: 5000
     nginx:
       fqdn: www.example.com
+      default: False
       upstreams:
         - localhost:5000
