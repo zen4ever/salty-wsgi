@@ -37,6 +37,17 @@ nginx:
 
 {% if pillar['main_user'] %}
 {% set main_user = pillar['main_user'] %}
+
+/etc/nginx/nginx.conf
+  source: salt://nginx/nginx.conf
+  template: jinja
+  defaults:
+    - main_user: {{ main_user }}
+    - workers: 4
+  file.managed:
+    - require:
+      - pkg: nginx
+
 {% for project in pillar['projects'] %}
 /etc/nginx/sites-enabled/{{ project.nginx.fqdn }}:
   file.managed:
@@ -60,5 +71,7 @@ nginx-service:
     - require:
       - pkg: nginx
       - file: /etc/nginx/sites-enabled/default
+      - file: /etc/nginx/nginx.conf
     - watch:
       - file: /etc/nginx/sites-enabled/*
+      - file: /etc/nginx/nginx.conf
