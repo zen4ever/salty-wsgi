@@ -3,24 +3,30 @@
 unset GIT_DIR
 if [ ! -f /home/{{ user }}/{{ appname }} ];
 then
+    echo "* Initial deployment."
     cd /home/{{ user }}
     git clone -b {{ branch }} /home/{{ user }}/.repos/{{ appname }}.git
     cd /home/{{ user }}/{{ appname }}
 else
+    echo "* Updating repository."
     cd /home/{{ user }}/{{ appname }}
     git pull origin {{ branch }}
 fi
 
+echo "* Installing dependencies."
 /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip install -r {{ requirements }}
 {% if django_settings %}
+echo "* Django settings are present, running collectstatic command."
 export DJANGO_SETTINGS_MODULE="{{ django_settings }}"
 /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/python manage.py collectstatic --noinput
 {% endif %}
 
 if [ -f ./Procfile ]; then
   echo "* Detected Procfile."
+  echo "* Exporting..."
   /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/honcho export supervisord /etc/supervisor/conf.d/ -u {{ user }} -a {{ appname }} -p {{ port_base }}
   sed -i 's/command=/command=\/home\/{{ user }}\/prepare_env.sh /g' "/etc/supervisor/conf.d/{{ appname }}.conf"
+  echo "* Restarting supervisor."
   supervisorctl reload
 fi
 exit 0
