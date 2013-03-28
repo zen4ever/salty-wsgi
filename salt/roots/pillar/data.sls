@@ -14,4 +14,5 @@ projects:
     port_base: 5000
     nginx:
       fqdn: topper.marpasoft.com
-      port: 5000
+      upstreams:
+        - localhost:5000
