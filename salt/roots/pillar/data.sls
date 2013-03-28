@@ -14,6 +14,7 @@ deployers:
 projects:
   - name: projectname
     branch: master
+    django_settings: projectname.settings
     provider: gunicorn
     requirements: requirements.txt
     port_base: 5000
