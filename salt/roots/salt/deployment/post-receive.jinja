@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 unset GIT_DIR
-if [ ! -f /home/{{ user }}/{{ appname }} ];
+if [ ! -d /home/{{ user }}/{{ appname }} ];
 then
     echo "* Initial deployment."
     cd /home/{{ user }}
