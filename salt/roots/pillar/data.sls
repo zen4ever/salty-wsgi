@@ -15,7 +15,6 @@ projects:
   - name: projectname
     branch: master
     provider: gunicorn
-    wsgi_module: projectname.wsgi
     requirements: requirements.txt
     port_base: 5000
     nginx:
