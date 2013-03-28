@@ -5,7 +5,6 @@ Vagrant::Config.run do |config|
   ## Chose your base box
   config.vm.box = "precise64"
   config.vm.box_url = "https://s3-us-west-2.amazonaws.com/squishy.vagrant-boxes/precise64_squishy_2013-02-09.box"
-  config.vm.host_name = "admanager"
 
   config.vm.forward_port 8000, 8000
 

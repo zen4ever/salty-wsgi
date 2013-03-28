@@ -10,9 +10,14 @@ else
     cd /home/{{ user }}/{{ appname }}
     git pull origin {{ branch }}
 fi
-. /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/activate
-pip install -r {{ requirements }}
-# ./manage.py collectstatic --noinput
-# supervisorctl reread
-# supervisorctl update
-# supervisorctl restart all
+
+/home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip install -r {{ requirements }}
+/home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/python manage.py collectstatic --noinput
+
+if [ -f ./Procfile ]; then
+  echo "* Detected Procfile."
+  /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/honcho export supervisord /etc/supervisor/conf.d/ -u {{ user }} -a {{ appname }} -p {{ port_base }}
+  sed -i 's/command=/command=\/home\/{{ user }}\/prepare_env.sh /g' "/etc/supervisor/conf.d/{{ appname }}.conf"
+  supervisorctl reload
+fi
+exit 0

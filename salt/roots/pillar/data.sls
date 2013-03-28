@@ -6,11 +6,12 @@ deployers:
   - github: zen4ever
 
 projects:
-  - name: admanager
+  - name: topper
     branch: master
     provider: gunicorn
-    wsgi_module: admanager.wsgi
-    requirements: requirements.txt
+    wsgi_module: topper.wsgi
+    requirements: requirements/production.txt
+    port_base: 5000
     nginx:
-      fqdn: admanager.marpasoft.com
-      port: 5001
+      fqdn: topper.marpasoft.com
+      port: 5000

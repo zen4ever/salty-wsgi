@@ -1,5 +1,6 @@
 include:
   - core
+  - supervisor
 
 {% if pillar['main_user'] %}
 {% set main_user = pillar['main_user'] %}
@@ -85,6 +86,17 @@ grant-access-{{ deployer.github }}:
     - require:
       - file: /home/{{ main_user }}/.virtualenvs
 
+/home/{{ main_user }}/prepare_env.sh:
+  file.managed:
+    - user: {{ main_user }}
+    - group: {{ main_user }}
+    - mode: 755
+    - source: salt://deployment/prepare_env.jinja
+    - template: jinja
+    - defaults:
+        main_user: {{ main_user }}
+        appname: {{ project.name }}
+
 bare-repo-{{ project.name }}:
   git.present:
     - bare: True
@@ -92,6 +104,23 @@ bare-repo-{{ project.name }}:
     - name: /home/{{ main_user }}/.repos/{{ project.name }}.git
     - require:
       - file: /home/{{ main_user }}/.repos
+
+/etc/supervisor/conf.d/{{ project.name }}.conf:
+  file.managed:
+    - replace: false
+    - user: {{ main_user }}
+    - group: {{ main_user }}
+    - mode: 644
+    - require:
+      - pip: supervisor
+      - file: /etc/supervisor/conf.d
+
+/var/log/{{ project.name }}:
+  file.directory:
+    - user: {{ main_user }}
+    - group: {{ main_user }}
+    - mode: 755
+    - makedirs: True
 
 /home/{{ main_user }}/.repos/{{ project.name }}.git/hooks/post-receive:
   file.managed:
@@ -108,7 +137,6 @@ bare-repo-{{ project.name }}:
         group: {{ main_user }}
     - require:
       - git: bare-repo-{{ project.name }}
-      - pkg: supervisor
-      - gem: foreman
+      - file: /var/log/{{ project.name }}
 {% endfor %}
 {% endif %}
