@@ -1,3 +1,4 @@
 .vagrant*
 .DS_Store
 docs/_build
+salt/roots/pillar/*.sls

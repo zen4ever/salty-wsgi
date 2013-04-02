@@ -9,30 +9,33 @@ Welcome to Salty WSGI's documentation!
 `Salty WSGI`_ is a set of Saltstack_ configuration states for easy deployment of
 Python WSGI apps (Django_, Flask_, etc) with Supervisord_, Nginx_, Virtualenv_.
 
-It is oriented towards making a deployment (and continuous deployment) of Django_/WSGI apps
-as easy as possible.
+It is oriented towards making a continuous deployment of Django_/WSGI apps
+as simple as possible.
 
-Workflow for initial deployment:
---------------------------------
+Initial deployment:
+-------------------
 
- - Develop your Python website.
-   Place the list of your dependencies into :file:`requirements.txt`.
+ - Place the list of your dependencies into :file:`requirements.txt`.
  - Create :file:`Procfile` with services that needs to be running (Gunicorn_, Celery_, etc.)
+ - Copy :file:`salt/roots/pillar/data.sls.example` -> :file:`salt/roots/pillar/data.sls`,
+   :file:`salt/roots/pillar/top.sls.example` -> :file:`salt/roots/pillar/top.sls`.
+   And fill in your values in :file:`data.sls`. Read more in :doc:`/configuration`.
  - Provision your virtual machine with Saltstack_ and a set of `Salty WSGI`_ configs
  - Add your deployment repo to git remotes ::
-
-     $ git remote add deploy deployment_user@deployment_server:.repos/project_name.git
+     
+     $ git remote add deploy {user}@{server}:.repos/{project_name}.git
 
  - Push your code to the server :: 
 
      $ git push deploy master
 
+ - Run ``syncdb`` or similar command for creating your database
  - Your website should be up and running.
 
-Workflow for updating your website:
------------------------------------
+Updating your website:
+----------------------
 
-  - Just push your code to the server ::
+ - Just push your code to the server ::
 
      $ git push deploy
 
@@ -41,6 +44,7 @@ Read more about how to start with Salty WSGI:
 
 .. toctree::
    quickstart
+   configuration
    :maxdepth: 2
 
 
