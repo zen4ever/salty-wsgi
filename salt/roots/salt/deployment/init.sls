@@ -86,6 +86,7 @@ grant-access-{{ deployer.github }}:
     - require:
       - file: /home/{{ main_user }}/.virtualenvs
 
+{% if 'django_settings' in project %}
 /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env/bin/postactivate:
   file.managed:
     - user: {{ main_user }}
@@ -96,11 +97,9 @@ grant-access-{{ deployer.github }}:
     - require:
       - virtualenv: /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env
     - defaults:
-        main_user: {{ main_user }}
-        appname: {{ project.name }}
+        django_settings: {{ project['django_settings'] }}
+{% endif %}
 
-
-{% if 'django_settings' in project %}
 /home/{{ main_user }}/prepare_env.sh:
   file.managed:
     - user: {{ main_user }}
@@ -109,8 +108,8 @@ grant-access-{{ deployer.github }}:
     - source: salt://deployment/prepare_env.jinja
     - template: jinja
     - defaults:
-        django_settings: {{ project.django_settings }}
-{% endif %}
+        main_user: {{ main_user }}
+        appname: {{ project.name }}
 
 bare-repo-{{ project.name }}:
   git.present:
