@@ -1,6 +1,9 @@
 debconf-utils:
   pkg.installed
 
+libmysqlclient-dev:
+  pkg.installed
+
 ruby1.9.1:
   pkg.installed
 
