@@ -13,4 +13,4 @@ Stack:
 Operating Systems
 -----------------
 
-Configuration has been tested on Ubuntu 12.04 LTE Precise Pangolin
+Configuration has been tested on Ubuntu 12.04 LTE Precise Pangolin and Amazon Linux
