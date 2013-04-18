@@ -1,13 +1,8 @@
+{% if grains['os_family'] == 'Debian' %}
 debconf-utils:
   pkg.installed
 
 libmysqlclient-dev:
-  pkg.installed
-
-ruby1.9.1:
-  pkg.installed
-
-ruby1.9.1-dev:
   pkg.installed
 
 libjpeg-dev:
@@ -22,6 +17,36 @@ libfreetype6-dev:
 zlib1g-dev:
   pkg.installed
 
+libpq-dev:
+  pkg.installed
+
+python-dev:
+  pkg.installed
+
+libevent1-dev:
+  pkg.installed
+{% endif %}
+
+{% if grains['os_family'] == 'RedHat' %}
+mysql-devel:
+  pkg.installed
+
+libjpeg-devel:
+  pkg.installed
+
+python-devel:
+  pkg.installed
+
+zlib-devel:
+  pkg.installed
+
+libevent-devel:
+  pkg.installed
+
+postgresql-devel:
+  pkg.installed
+{% endif %}
+
 python-pip:
   pkg.installed:
     - order: 1
@@ -34,20 +59,6 @@ python-pip:
     - require:
       - pkg: python-pip
 {% endif %}
-
-libpq-dev:
-  pkg.installed
-
-python-dev:
-  pkg.installed
-
-libevent1-dev:
-  pkg.installed
-
-foreman:
-  gem.installed:
-    - require:
-      - pkg: ruby1.9.1
 
 en_US.UTF-8:
   locale.system
