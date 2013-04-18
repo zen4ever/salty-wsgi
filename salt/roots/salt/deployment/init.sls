@@ -34,6 +34,7 @@ github.com:
     - require:
       - user: {{ main_user }}
 
+{% if grains['os'] == 'Ubuntu' %}
 /home/{{ main_user }}/.bashrc:
   file.managed:
     - user: {{ main_user }}
@@ -41,6 +42,14 @@ github.com:
     - source: salt://deployment/bashrc
     - require:
       - file: /home/{{ main_user }}
+{% else %}
+/home/{{ main_user }}/.bashrc:
+  file.append:
+    - text: |
+        if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+            . /usr/local/bin/virtualenvwrapper.sh
+        fi
+{% endif %}
 
 /home/{{ main_user }}/.ssh:
   file.directory:

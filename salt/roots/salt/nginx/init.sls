@@ -1,9 +1,19 @@
 # install nginx from PPA so we have the latest version
+{% if grains['os'] == 'Amazon' %}
+base:
+  pkgrepo.managed:
+    - human_name: nginx repo
+    - baseurl: http://nginx.org/packages/centos/5/$basearch/
+    - gpgcheck: 0
+    - require_in:
+      - pkg: nginx
+{% elif grains['os'] == 'Ubuntu' %}
 base:
   pkgrepo.managed:
     - ppa: nginx/stable
     - require_in:
       - pkg: nginx
+{% endif %}
 
 apache2.2-common:
   pkg.purged
@@ -14,11 +24,13 @@ nginx:
       - pkg: apache2.2-common
 
 
+{% if grains['os'] == 'Ubuntu' %}
 # on Ubuntu 12.04 this file prevents nginx from launching
 /etc/nginx/sites-available/default:
   file.absent:
     - require:
       - pkg: nginx
+{% endif %}
 
 /etc/nginx/sites-enabled/default:
   file.absent:

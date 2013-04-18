@@ -23,7 +23,17 @@ zlib1g-dev:
   pkg.installed
 
 python-pip:
-  pkg.installed
+  pkg.installed:
+    - order: 1
+
+{% if grains['os'] == 'Amazon' %}
+/usr/bin/pip:
+  file.symlink:
+    - target: /usr/bin/pip-python
+    - order: 1
+    - require:
+      - pkg: python-pip
+{% endif %}
 
 libpq-dev:
   pkg.installed
