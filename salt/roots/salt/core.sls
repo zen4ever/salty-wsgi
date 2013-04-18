@@ -34,6 +34,12 @@ mysql-devel:
 libjpeg-devel:
   pkg.installed
 
+freetype:
+  pkg.installed
+
+freetype-devel:
+  pkg.installed
+
 python-devel:
   pkg.installed
 
