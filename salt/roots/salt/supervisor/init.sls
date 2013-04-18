@@ -9,11 +9,23 @@ supervisor:
 
 {% if pillar['main_user'] %}
 {% set main_user = pillar['main_user'] %}
+
+{% if grains['os'] == 'Ubuntu' %}
 /etc/init/supervisor.conf:
   file.managed:
     - source: salt://supervisor/init.conf
     - require:
       - pip: supervisor
+{% endif %}
+
+{% if grains['os'] == 'Amazon' %}
+/etc/init.d/supervisor:
+  file.managed:
+    - source: salt://supervisor/init_amazon
+    - mode: 755
+    - require:
+      - pip: supervisor
+{% endif %}
 
 /etc/supervisor:
   file.directory:

@@ -1,10 +1,11 @@
 # install nginx from PPA so we have the latest version
 {% if grains['os'] == 'Amazon' %}
-base:
+nginx:
   pkgrepo.managed:
-    - human_name: nginx repo
+    - humanname: nginx repo
     - baseurl: http://nginx.org/packages/centos/5/$basearch/
     - gpgcheck: 0
+    - enabled: 1
     - require_in:
       - pkg: nginx
 {% elif grains['os'] == 'Ubuntu' %}

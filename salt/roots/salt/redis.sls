@@ -1,9 +1,9 @@
-redis-server:
+{{ pillar['redis'] }}:
   pkg.installed
 
 redis-service:
   service.running:
-    - name: redis-server
+    - name: {{ pillar['redis'] }}
     - enable: True
     - require:
-      - pkg: redis-server
+      - pkg: {{ pillar['redis'] }}
