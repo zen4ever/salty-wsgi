@@ -25,3 +25,9 @@ projects:
 
 nginx:
   workers: 4
+
+{% if grains['os_family'] == 'Debian' %}
+redis: redis-server
+{% elif grains['os_family'] == 'RedHat' %}
+redis: redis
+{% endif %}
