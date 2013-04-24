@@ -46,8 +46,8 @@ github.com:
 /home/{{ main_user }}/.bashrc:
   file.append:
     - text: |
-        if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-            . /usr/local/bin/virtualenvwrapper.sh
+        if [ -f /usr/bin/virtualenvwrapper.sh ]; then
+            . /usr/bin/virtualenvwrapper.sh
         fi
 {% endif %}
 
