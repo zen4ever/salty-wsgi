@@ -28,6 +28,18 @@ libevent1-dev:
 {% endif %}
 
 {% if grains['os_family'] == 'RedHat' %}
+make:
+  pkg.installed
+
+glibc-devel:
+  pkg.installed
+
+gcc:
+  pkg.installed
+
+mysql:
+  pkg.installed
+
 mysql-devel:
   pkg.installed
 
