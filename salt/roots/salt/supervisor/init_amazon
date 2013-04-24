@@ -10,6 +10,7 @@
 supervisorctl="/usr/bin/supervisorctl"
 supervisord="/usr/bin/supervisord"
 name="supervisor"
+user="{{ main_user }}"
  
 [ -f $supervisord ] || exit 1
 [ -f $supervisorctl ] || exit 1
@@ -18,7 +19,7 @@ RETVAL=0
  
 start() {
      echo -n "Starting $name: "
-     $supervisord
+     sudo -u $user $supervisord
      RETVAL=$?
      echo
      return $RETVAL
@@ -26,7 +27,7 @@ start() {
  
 stop() {
      echo -n "Stopping $name: "
-    $supervisorctl shutdown
+     sudo -u $user $supervisorctl shutdown
      RETVAL=$?
      echo
      return $RETVAL

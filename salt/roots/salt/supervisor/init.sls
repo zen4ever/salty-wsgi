@@ -14,8 +14,11 @@ supervisor:
 /etc/init/supervisor.conf:
   file.managed:
     - source: salt://supervisor/init.conf
+    - template: jinja
     - require:
       - pip: supervisor
+    - defaults:
+      main_user: {{ main_user }}
 {% endif %}
 
 {% if grains['os'] == 'Amazon' %}
@@ -23,8 +26,11 @@ supervisor:
   file.managed:
     - source: salt://supervisor/init_amazon
     - mode: 755
+    - template: jinja
     - require:
       - pip: supervisor
+    - defaults:
+      main_user: {{ main_user }}
 {% endif %}
 
 /etc/supervisor:
