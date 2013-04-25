@@ -70,6 +70,7 @@ nginx:
     - context: {{ project.nginx }}
     - defaults:
         ssl: {{ False }}
+        timeout: 60
         aliases: {{ [] }}
         upstreams: {{ [] }}
         default: {{ True }}

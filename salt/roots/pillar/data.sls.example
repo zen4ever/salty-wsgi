@@ -20,6 +20,7 @@ projects:
     nginx:
       fqdn: www.example.com
       default: False
+      timeout: 120
       upstreams:
         - localhost:5000
 
