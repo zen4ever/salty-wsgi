@@ -2,9 +2,6 @@ include:
   - core
   - supervisor
 
-pip-accel:
-  pip.installed
-
 {% if pillar['main_user'] %}
 {% set main_user = pillar['main_user'] %}
 # create default deployment user

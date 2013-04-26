@@ -16,12 +16,9 @@ fi
 
 export VIRTUAL_ENV="/home/{{ user }}/.virtualenvs/{{ appname }}-env"
 echo "* Installing dependencies."
-if hash pip-accel 2>/dev/null;
-then
-    pip-accel install -r {{ requirements }}
-else
-    /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip install -r {{ requirements }}
-fi
+
+/home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip install -r {{ requirements }}
+
 {% if django_settings %}
 echo "* Django settings are present, running collectstatic command."
 export DJANGO_SETTINGS_MODULE="{{ django_settings }}"
