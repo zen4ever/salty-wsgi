@@ -95,6 +95,13 @@ grant-access-{{ deployer.github }}:
     - require:
       - file: /home/{{ main_user }}/.virtualenvs
 
+{{ project.name }}-pip-accel:
+  pip.installed:
+    - name: pip-accel
+    - bin_env: /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env
+    - require:
+      - virtualenv: /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env
+
 {% if 'django_settings' in project %}
 /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env/bin/postactivate:
   file.managed:
