@@ -1,7 +1,6 @@
 #!/bin/sh
 set -e
 
-export VIRTUAL_ENV="/home/{{ user }}/.virtualenvs/{{ appname }}-env"
 unset GIT_DIR
 if [ ! -d /home/{{ user }}/{{ appname }} ];
 then
@@ -15,10 +14,11 @@ else
     git pull origin {{ branch }}
 fi
 
+export VIRTUAL_ENV="/home/{{ user }}/.virtualenvs/{{ appname }}-env"
 echo "* Installing dependencies."
-if [ -f /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip-accel ];
+if hash pip-accel 2>/dev/null;
 then
-    /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip-accel install -r {{ requirements }}
+    pip-accel install -r {{ requirements }}
 else
     /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip install -r {{ requirements }}
 fi

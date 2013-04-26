@@ -2,6 +2,9 @@ include:
   - core
   - supervisor
 
+pip-accel:
+  pip.installed
+
 {% if pillar['main_user'] %}
 {% set main_user = pillar['main_user'] %}
 # create default deployment user
@@ -94,14 +97,6 @@ grant-access-{{ deployer.github }}:
     - no_site_packages: True
     - require:
       - file: /home/{{ main_user }}/.virtualenvs
-
-{{ project.name }}-pip-accel:
-  pip.installed:
-    - name: pip-accel
-    - user: {{ main_user }}
-    - bin_env: /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env
-    - require:
-      - virtualenv: /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env
 
 {% if 'django_settings' in project %}
 /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env/bin/postactivate:
