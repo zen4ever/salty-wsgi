@@ -98,6 +98,7 @@ grant-access-{{ deployer.github }}:
 {{ project.name }}-pip-accel:
   pip.installed:
     - name: pip-accel
+    - user: {{ main_user }}
     - bin_env: /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env
     - require:
       - virtualenv: /home/{{ main_user }}/.virtualenvs/{{ project.name }}-env
