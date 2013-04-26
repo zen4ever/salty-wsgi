@@ -15,7 +15,12 @@ else
 fi
 
 echo "* Installing dependencies."
-/home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip install -r {{ requirements }}
+if [ -f /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip-accel ];
+then
+    /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip-accel install -r {{ requirements }}
+else
+    /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip install -r {{ requirements }}
+fi
 {% if django_settings %}
 echo "* Django settings are present, running collectstatic command."
 export DJANGO_SETTINGS_MODULE="{{ django_settings }}"
