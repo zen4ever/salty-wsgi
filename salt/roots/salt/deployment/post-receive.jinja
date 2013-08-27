@@ -33,4 +33,12 @@ if [ -f ./Procfile ]; then
   echo "* Restarting supervisor."
   supervisorctl reload
 fi
+
+{% if crontab %}
+if [ -f {{ crontab }} ]; then
+    echo "* Updating crontab"
+    crontab "{{ crontab }}"
+fi
+{% endif %}
+
 exit 0

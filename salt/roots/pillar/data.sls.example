@@ -15,6 +15,7 @@ projects:
   - name: projectname
     branch: master
     django_settings: projectname.settings
+    crontab: cron/production/crontab
     requirements: requirements.txt
     port_base: 5000
     nginx:
