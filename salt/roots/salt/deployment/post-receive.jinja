@@ -19,7 +19,7 @@ echo "* Installing dependencies."
 
 /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/pip install -r {{ requirements }}
 
-{% if django_settings %}
+{% if django_settings is defined %}
 echo "* Django settings are present, running collectstatic command."
 export DJANGO_SETTINGS_MODULE="{{ django_settings }}"
 /home/{{ user }}/.virtualenvs/{{ appname }}-env/bin/python manage.py collectstatic --noinput
@@ -34,7 +34,7 @@ if [ -f ./Procfile ]; then
   supervisorctl reload
 fi
 
-{% if crontab %}
+{% if crontab is defined %}
 if [ -f {{ crontab }} ]; then
     echo "* Updating crontab"
     crontab "{{ crontab }}"
