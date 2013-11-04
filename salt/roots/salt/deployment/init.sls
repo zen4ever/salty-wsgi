@@ -1,6 +1,7 @@
 include:
   - core
   - supervisor
+  - virtualenv
 
 {% if pillar['main_user'] %}
 {% set main_user = pillar['main_user'] %}
@@ -93,6 +94,7 @@ grant-access-{{ deployer.github }}:
     - runas: {{ main_user }}
     - no_site_packages: True
     - require:
+      - pip: virtualenv
       - file: /home/{{ main_user }}/.virtualenvs
 
 {% if 'django_settings' in project %}

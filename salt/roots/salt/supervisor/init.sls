@@ -17,6 +17,8 @@ supervisor:
     - template: jinja
     - require:
       - pip: supervisor
+      - user: {{ main_user }}
+      - group: {{ main_user }}
     - defaults:
       main_user: {{ main_user }}
 {% endif %}
@@ -29,6 +31,8 @@ supervisor:
     - template: jinja
     - require:
       - pip: supervisor
+      - user: {{ main_user }}
+      - group: {{ main_user }}
     - defaults:
       main_user: {{ main_user }}
 {% endif %}
@@ -41,6 +45,8 @@ supervisor:
     - makedirs: True
     - require:
       - pip: supervisor
+      - user: {{ main_user }}
+      - group: {{ main_user }}
 
 /etc/supervisor/conf.d:
   file.directory:
@@ -59,6 +65,8 @@ supervisor:
     - template: jinja
     - require:
       - pip: supervisor
+      - user: {{ main_user }}
+      - group: {{ main_user }}
     - defaults:
       main_user: {{ main_user }}
 
