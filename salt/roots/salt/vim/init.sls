@@ -13,4 +13,6 @@ vim-minimal:
     - user: {{ main_user }}
     - group: {{ main_user }}
     - source: salt://vim/vimrc
+    - require:
+      - user: {{ main_user }}
 {% endif %}
