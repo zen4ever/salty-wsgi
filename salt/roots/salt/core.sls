@@ -25,6 +25,9 @@ python-dev:
 
 libevent1-dev:
   pkg.installed
+
+python-apt:
+  pkg.installed
 {% endif %}
 
 {% if grains['os_family'] == 'RedHat' %}
