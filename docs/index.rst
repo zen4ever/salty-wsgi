@@ -21,9 +21,13 @@ Initial deployment:
    :file:`salt/roots/pillar/top.sls.example` -> :file:`salt/roots/pillar/top.sls`.
    And fill in your values in :file:`data.sls`. Read more in :doc:`/configuration`.
  - Provision your virtual machine with Saltstack_ and a set of `Salty WSGI`_ configs
+ - Apply salt configuration ::
+     $  salt-call state.highstate --local
  - Add your deployment repo to git remotes ::
      
      $ git remote add deploy {user}@{server}:.repos/{project_name}.git
+     
+     where user - is a user you specified in data.sls 
 
  - Push your code to the server :: 
 
