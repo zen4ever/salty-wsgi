@@ -28,6 +28,12 @@ libevent1-dev:
 
 python-apt:
   pkg.installed
+
+mercurial:
+  pkg.installed
+
+subversion:
+  pkg.installed
 {% endif %}
 
 {% if grains['os_family'] == 'RedHat' %}
